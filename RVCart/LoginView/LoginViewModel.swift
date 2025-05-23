@@ -25,8 +25,16 @@ final class LoginViewModel {
             completion (false, ErrorMessages.passwordRequired)
         }
         
-        
-        
+        let param = ["email": email, "password": password]
+        APIManager.post(params: param, url: APPURL.Urls.Login) { responseDict, error in
+            if error == nil {
+                print(responseDict ?? "No Dict Data Found")
+                completion(true, "Got the Data")
+            } else {
+                print("No Data Found")
+                completion(false, "No Data Found")
+            }
+        }
     }
     
 }
