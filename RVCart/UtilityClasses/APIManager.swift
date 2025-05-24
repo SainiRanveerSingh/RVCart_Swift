@@ -72,7 +72,6 @@ final class APIManager {
             completionHandler(nil, "Please try again.")
             return
         }
-        //let requestUrl = urlComponents.url!
         var request = URLRequest(url: requestUrl)
         
         request.httpMethod = "GET"
@@ -82,8 +81,8 @@ final class APIManager {
         if addAccessToken {
             let token = KeychainSecure.instance.getToken(forKey: "accessToken") ?? ""
             let authorizationToken = "Bearer " + token
-            //request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            request.setValue(authorizationToken, forHTTPHeaderField: "Authorization")
+            request.addValue(authorizationToken, forHTTPHeaderField: "Authorization")
+            //request.setValue(authorizationToken, forHTTPHeaderField: "Authorization")
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -95,9 +94,6 @@ final class APIManager {
                 completionHandler(nil, error?.localizedDescription)
             } else {
                 let httpResponse = response as? HTTPURLResponse
-                //print(data ?? "No Data")
-                //print(response ?? "No Response")
-                //print(httpResponse?.statusCode ?? "404 Not Found")
                 
                 if let errorCode = httpResponse?.statusCode as? Int {
                     if errorCode == 401 {

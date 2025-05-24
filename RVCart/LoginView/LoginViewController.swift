@@ -34,10 +34,12 @@ class LoginViewController: UIViewController {
     }
     
     func initialSetup() {
+        hideKeyboardWhenTappedAround()
+        
         viewLogin.clipsToBounds = true
         viewLogin.layer.cornerRadius = 20
         viewLogin.layer.borderWidth = 1.0
-        viewLogin.layer.borderColor = UIColor(_colorLiteralRed: 0/255, green: 113/255, blue: 201/255, alpha: 1.0).cgColor
+        viewLogin.layer.borderColor = themeColor.cgColor//UIColor(_colorLiteralRed: 0/255, green: 113/255, blue: 201/255, alpha: 1.0).cgColor
         
         viewEmailAddress.clipsToBounds = true
         viewEmailAddress.layer.cornerRadius = 10
@@ -54,7 +56,10 @@ class LoginViewController: UIViewController {
         loginViewModel.login(email: txtEmailAddress.text ?? "", password: txtPassword.text ?? "") { status, message in
             LoadingView.sharedInstance.stopLoader()
             if status {
-                
+                DispatchQueue.main.async {
+                    let homeVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                    self.navigationController?.pushViewController(homeVC, animated: true)
+                }
             } else {
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -66,5 +71,12 @@ class LoginViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
