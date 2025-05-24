@@ -25,6 +25,12 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         initialSetup()
         // Do any additional setup after loading the view.
+        
+#if DEBUG
+        txtEmailAddress.text = "john@mail.com"
+        txtPassword.text = "changeme"
+#endif
+        
     }
     
     func initialSetup() {
@@ -44,9 +50,20 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func btnLogin(_ button: UIButton) {
+        LoadingView.sharedInstance.showLoader(msg: "")
         loginViewModel.login(email: txtEmailAddress.text ?? "", password: txtPassword.text ?? "") { status, message in
+            LoadingView.sharedInstance.stopLoader()
             if status {
                 
+            } else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel) { (action) in
+                        // ...
+                    }
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true)
+                }
             }
         }
     }

@@ -26,15 +26,54 @@ final class LoginViewModel {
         }
         
         let param = ["email": email, "password": password]
-        APIManager.post(params: param, url: APPURL.Urls.Login) { responseDict, error in
+        
+        APIManager.post(params: param, url: APPURL.Urls.Login, addAccessToken: false) { responseData, error in
             if error == nil {
-                print(responseDict ?? "No Dict Data Found")
-                completion(true, "Got the Data")
+                print(responseData?.count ?? "No Data Found")
+                guard let data = responseData else {
+                    completion(false, error ?? "Something went wrong. Please try again.")
+                    return
+                }
+                do {
+                    if let dataValue = try? JSONDecoder().decode(LoginResponse.self, from: data) {
+                        print(dataValue.accessToken)
+                        try? KeychainSecure.instance.saveToken(dataValue.accessToken, forKey: "accessToken")
+                        self.getUserProfileData()
+                        completion(true, "Got the Data")
+                    } else {
+                        print("Change in Response Data Structure")
+                        completion(false, "Something went wrong. Please try again.")
+                    }
+                }
             } else {
-                print("No Data Found")
-                completion(false, "No Data Found")
+                print(error ?? "Error!!!")
+                if error == "Unauthorized" {
+                    completion(false, "Unauthorized or Invalid User Credentials. Please use correct Email or Password")
+                }
+                completion(false, error ?? "Something went wrong. Please try again.")
             }
         }
     }
     
+    func getUserProfileData() {
+        let param = ["":""]
+        APIManager.get(params: param, url: APPURL.Urls.Profile, addAccessToken: true) { dataValue, error in
+            if error == nil {
+                guard let data = dataValue else {
+                    //completion(false, error ?? "Something went wrong. Please try again.")
+                    return
+                }
+                print(dataValue?.count ?? "Empty Data")
+                do {
+                    if let userData = try? JSONDecoder().decode(UserProfileModel.self, from: data) {
+                        print(userData.name)
+                    } else {
+                        print("Got error: \(error ?? "")")
+                    }
+                }
+            } else {
+                print(error ?? "Error!!!")
+            }
+        }
+    }
 }
