@@ -13,6 +13,7 @@ class CategoryCollectionView: UICollectionView {
     var didSelect: ((_ index: Int) -> Void)?
     var callAPIForGettingNextDiscoverSet: ((_ page: Int) -> Void)?
     var categoryCollectionViewModel : HomeViewModel!
+    var selectedIndexPath : IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,12 +46,36 @@ extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewData
     func cell (indexPath:IndexPath) ->  CategoryCell {
         let cell = dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
         cell.configureCell(items: categoryCollectionViewModel?.arrCategories, index: indexPath.row)
+        if selectedIndexPath == indexPath {
+            cell.makeItSelectedCell()
+        } else {
+            cell.makeItNormalCell()
+        }
         //cell.lblCategory.text = "Cell Item: \(indexPath.item + 1)"
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelect?(indexPath.item)
+        if selectedIndexPath != indexPath {
+            didSelect?(indexPath.item)
+        }
+        if let cell = getCellFor(indexPath: indexPath) {
+            cell.makeItSelectedCell()
+            selectedIndexPath = indexPath
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = getCellFor(indexPath: indexPath) {
+            cell.makeItNormalCell()
+        }
+    }
+    
+    
+    func getCellFor(indexPath: IndexPath) -> CategoryCell? {
+        return self.cellForItem(at: indexPath) as? CategoryCell
     }
     
 }
+
+

@@ -36,8 +36,15 @@ class CategoryCell: UICollectionViewCell {
         if let imageUrl = category?.image {
             imgCategory.downloadImageFrom(urlString: imageUrl, imageMode: .scaleAspectFill)
         }
-        
-     
+    }
+    
+    func makeItSelectedCell() {
+        viewCategory.backgroundColor = themeColor
+        lblCategory.textColor = UIColor.white
     }
 
+    func makeItNormalCell() {
+        viewCategory.backgroundColor = themeColor.withAlphaComponent(0.2)
+        lblCategory.textColor = themeColor
+    }
 }

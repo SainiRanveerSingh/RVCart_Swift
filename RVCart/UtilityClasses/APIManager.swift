@@ -14,7 +14,7 @@ final class APIManager {
      403 Forbidden: Valid authentication but insufficient permissions
      400 Bad Request: Malformed request body or headers
     */
-    class func post(params : Dictionary<String, String>, url : String, addAccessToken: Bool, completionHandler:@escaping (_ dataValue: Data?, String?) -> Void) { //[String: Any]?, Error?
+    class func post(params : Dictionary<String, Any>, url : String, addAccessToken: Bool, completionHandler:@escaping (_ dataValue: Data?, String?) -> Void) { //[String: Any]?, Error?
         
         //TODO: Testing
         //let parameters = ["email": "john@mail.com", "password": "changeme"]
@@ -67,15 +67,36 @@ final class APIManager {
     */
     class func get(params : Dictionary<String, String>, url : String, addAccessToken: Bool, completionHandler:@escaping (_ dataValue: Data?, String?) -> Void) {
         let requestBody = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+        //--
+        var components = URLComponents(string: url)!
+
+        var queryItemvalues = [URLQueryItem]()
+        for (key, value) in params {
+            let queryItem = URLQueryItem(name: key, value: value)
+            queryItemvalues.append(queryItem)
+        }
+        if queryItemvalues.count > 0 {
+            components.queryItems = queryItemvalues
+        }
+
+        guard let requestUrl = components.url else {
+            completionHandler(nil, "Please try again.")
+            return
+        }
+        //--
+        /*
         guard let requestUrl = URL(string: url) else
         {
             completionHandler(nil, "Please try again.")
             return
         }
+        */
+        //--
         var request = URLRequest(url: requestUrl)
-        
+        print("\n-----\nRequest URL:\(String(describing: request.url))\n-----\n")
         request.httpMethod = "GET"
         //request.httpBody = requestBody
+        
         
         //request.addValue("Bearer \()", forHTTPHeaderField: "Authorization")
         if addAccessToken {

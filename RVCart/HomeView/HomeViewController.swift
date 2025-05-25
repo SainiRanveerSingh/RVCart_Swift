@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         initialSetup()
         loadCategories()
+        loadProducts() 
         // Do any additional setup after loading the view.
     }
     
@@ -27,11 +28,14 @@ class HomeViewController: UIViewController {
     
     func initialSetup() {
         setupNagigationBar()
+        hideKeyboardWhenTappedAround()
         collectionViewCategory.configure(homeViewModel)
         collectionViewCategory.didSelect = { [weak self] (index) in
             guard let self = self else { return }
             self.selectedCategoryID = self.homeViewModel.getCategoryIdAt(index: index)
+            self.homeViewModel.selectedCategoryId = self.selectedCategoryID
             print("Selected Category ID: \(self.selectedCategoryID)")
+            self.loadProducts()
         }
     }
     
@@ -74,5 +78,26 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func loadProducts() {
+        LoadingView.sharedInstance.showLoader(msg: "")
+        homeViewModel.loadProductData { status, message in
+            LoadingView.sharedInstance.stopLoader()
+            if status {
+                DispatchQueue.main.async {
+                    //Reload Collection View
+                }
+            } else {
+                //Error
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel) { (action) in
+                        // ...
+                    }
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
 
 }

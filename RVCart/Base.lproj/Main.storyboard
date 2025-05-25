@@ -165,8 +165,18 @@
                                     <constraint firstAttribute="height" constant="1" id="Nfz-NS-qKB"/>
                                 </constraints>
                             </view>
+                            <searchBar contentMode="redraw" placeholder="Search Product" translatesAutoresizingMaskIntoConstraints="NO" id="N4D-qg-u28">
+                                <rect key="frame" x="10" y="69" width="373" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="UYV-fh-whv"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Qa9-l4-UGq" id="cT6-zu-HkU"/>
+                                </connections>
+                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="laY-ft-xbs" customClass="CategoryCollectionView" customModule="RVCart" customModuleProvider="target">
-                                <rect key="frame" x="16" y="60" width="361" height="80"/>
+                                <rect key="frame" x="16" y="128" width="361" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="vEJ-RI-qMj"/>
@@ -189,7 +199,7 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KtU-5y-K0C">
-                                <rect key="frame" x="10" y="150" width="373" height="668"/>
+                                <rect key="frame" x="10" y="218" width="373" height="600"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mJj-pl-4bw">
                                     <size key="itemSize" width="128" height="128"/>
@@ -220,14 +230,17 @@
                         <viewLayoutGuide key="safeArea" id="rA5-iW-UuA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="N4D-qg-u28" firstAttribute="trailing" secondItem="rA5-iW-UuA" secondAttribute="trailing" constant="-10" id="61H-kC-iOF"/>
                             <constraint firstItem="rA5-iW-UuA" firstAttribute="trailing" secondItem="laY-ft-xbs" secondAttribute="trailing" constant="16" id="6eC-1Y-2WR"/>
+                            <constraint firstItem="laY-ft-xbs" firstAttribute="top" secondItem="N4D-qg-u28" secondAttribute="bottom" constant="9" id="BmD-m8-UHL"/>
                             <constraint firstItem="JdZ-Uq-LkH" firstAttribute="top" secondItem="rA5-iW-UuA" secondAttribute="top" id="EqV-RX-QMX"/>
-                            <constraint firstItem="laY-ft-xbs" firstAttribute="top" secondItem="rA5-iW-UuA" secondAttribute="top" constant="1" id="Ind-MP-3Kd"/>
                             <constraint firstItem="KtU-5y-K0C" firstAttribute="top" secondItem="laY-ft-xbs" secondAttribute="bottom" constant="10" id="NAu-15-Ud5"/>
                             <constraint firstAttribute="trailing" secondItem="JdZ-Uq-LkH" secondAttribute="trailing" id="Vgx-ur-PLn"/>
                             <constraint firstItem="laY-ft-xbs" firstAttribute="leading" secondItem="rA5-iW-UuA" secondAttribute="leading" constant="16" id="W6z-vm-cXa"/>
                             <constraint firstItem="JdZ-Uq-LkH" firstAttribute="leading" secondItem="yl5-on-HZb" secondAttribute="leading" id="Zdf-US-D6o"/>
                             <constraint firstItem="KtU-5y-K0C" firstAttribute="bottom" secondItem="rA5-iW-UuA" secondAttribute="bottom" id="hGR-Y1-fy2"/>
+                            <constraint firstItem="N4D-qg-u28" firstAttribute="leading" secondItem="rA5-iW-UuA" secondAttribute="leading" constant="10" id="kTE-4c-5ee"/>
+                            <constraint firstItem="N4D-qg-u28" firstAttribute="top" secondItem="rA5-iW-UuA" secondAttribute="top" constant="10" id="lCP-mT-fUz"/>
                             <constraint firstItem="KtU-5y-K0C" firstAttribute="leading" secondItem="rA5-iW-UuA" secondAttribute="leading" constant="10" id="wSC-ip-pve"/>
                             <constraint firstItem="rA5-iW-UuA" firstAttribute="trailing" secondItem="KtU-5y-K0C" secondAttribute="trailing" constant="10" id="xwG-WL-xzS"/>
                         </constraints>
