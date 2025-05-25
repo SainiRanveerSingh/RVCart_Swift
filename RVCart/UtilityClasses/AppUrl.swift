@@ -30,16 +30,16 @@ struct APPURL {
     private  static let Route = Routes.Api
     private  static let Version = Versions.V1
     private  static let Auth = Authentication.Auth
-    private  static let BaseURL = Domain + Route + Version + Auth
+    private  static let BaseURL = Domain + Route + Version
     
     struct Urls {
         
         static var Login : String {
-            return BaseURL + "login"
+            return BaseURL  + Auth + "login"
         }
         
         static var Profile : String {
-            return BaseURL + "profile"
+            return BaseURL  + Auth + "profile"
         }
         
         static var Categories : String {

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CategoryCell" customModule="RVCart" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="209" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="209" height="60"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-mA-XT9">
+                        <rect key="frame" x="10" y="10" width="189" height="40"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.closed.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DRA-oy-LyR" customClass="CustomImageView" customModule="RVCart" customModuleProvider="target">
+                                <rect key="frame" x="15" y="0.66666666666666785" width="40" height="38.666666666666657"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="aF4-4l-PbC"/>
+                                    <constraint firstAttribute="height" constant="40" id="tHk-Kz-Te2"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmj-Eb-vpY">
+                                <rect key="frame" x="60" y="15" width="114" height="10"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DRA-oy-LyR" firstAttribute="leading" secondItem="kwY-mA-XT9" secondAttribute="leading" constant="15" id="K5f-rp-ZlT"/>
+                            <constraint firstItem="Wmj-Eb-vpY" firstAttribute="top" secondItem="kwY-mA-XT9" secondAttribute="top" constant="15" id="SH9-Zs-EIt"/>
+                            <constraint firstItem="Wmj-Eb-vpY" firstAttribute="leading" secondItem="DRA-oy-LyR" secondAttribute="trailing" constant="5" id="Wje-at-A1k"/>
+                            <constraint firstItem="DRA-oy-LyR" firstAttribute="centerY" secondItem="kwY-mA-XT9" secondAttribute="centerY" id="ePJ-Db-mGH"/>
+                            <constraint firstAttribute="trailing" secondItem="Wmj-Eb-vpY" secondAttribute="trailing" constant="15" id="k42-ng-VNE"/>
+                            <constraint firstAttribute="bottom" secondItem="Wmj-Eb-vpY" secondAttribute="bottom" constant="15" id="wuA-bv-tCB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="kwY-mA-XT9" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="R6H-3g-QpK"/>
+                <constraint firstAttribute="trailing" secondItem="kwY-mA-XT9" secondAttribute="trailing" constant="10" id="ZfZ-4F-RRS"/>
+                <constraint firstItem="kwY-mA-XT9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="aPW-Q8-vHT"/>
+                <constraint firstAttribute="bottom" secondItem="kwY-mA-XT9" secondAttribute="bottom" constant="10" id="i4R-dh-FWf"/>
+            </constraints>
+            <size key="customSize" width="209" height="60"/>
+            <connections>
+                <outlet property="imgCategory" destination="DRA-oy-LyR" id="twT-JL-9bo"/>
+                <outlet property="lblCategory" destination="Wmj-Eb-vpY" id="m0R-mW-Afw"/>
+                <outlet property="viewCategory" destination="kwY-mA-XT9" id="RHF-M5-Zda"/>
+            </connections>
+            <point key="canvasLocation" x="183.96946564885496" y="-7.746478873239437"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="book.closed.circle" catalog="system" width="128" height="123"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

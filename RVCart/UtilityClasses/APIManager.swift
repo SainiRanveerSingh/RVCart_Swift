@@ -107,17 +107,31 @@ final class APIManager {
                 }
                 do {
                     //create json object from data
+                    /*
                     guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] else {
-                        completionHandler(nil,"User not found. Please try again.")
+                        completionHandler(nil,"Unable to Format the Data")
                         return
                     }
-                    print(json)
-                    if let statusCode = json["statusCode"] as? Int {
-                        let message = json["message"] as? String
-                        if statusCode == 401 {
-                            completionHandler(nil, message ?? "Unauthorized User. Please check your Login credentials and try again.")
+                    */
+                    var jsonDict = [String: Any]()
+                    var jsonArray = [Any]()
+                    if let jsonAsDict = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                        jsonDict = jsonAsDict
+                        print(jsonDict)
+                        if let statusCode = jsonDict["statusCode"] as? Int {
+                            let message = jsonDict["message"] as? String
+                            if statusCode == 401 {
+                                completionHandler(nil, message ?? "Unauthorized User. Please check your Login credentials and try again.")
+                            }
                         }
+                    } else if let jsonAsArray = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [Any] {
+                        jsonArray = jsonAsArray
+                        print(jsonArray)
+                    } else {
+                        print("Unable to Format the Data")
                     }
+                    
+                    
                     completionHandler(data, nil)
                 } catch let error {
                     print(error.localizedDescription)
