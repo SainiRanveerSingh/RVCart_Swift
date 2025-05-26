@@ -41,6 +41,11 @@ final class HomeViewModel {
         }
     }
     
+    func logOutUser() {
+        do {
+            try? KeychainSecure.instance.saveToken("", forKey: "accessToken")
+        } 
+    }
     
     func getCategoryIdAt(index: Int) -> Int {
         if arrCategories.count > index {

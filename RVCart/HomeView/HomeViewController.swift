@@ -75,9 +75,64 @@ class HomeViewController: UIViewController {
     
     func setupNagigationBar() {
         self.navigationItem.hidesBackButton = true
-        self.navigationItem.title = "Products"
+        self.navigationItem.title = "RV Cart"
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.setNavigationBarBorderColor(themeColor)
+/*
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: Selector(("logOut:")))
+
+        let flterButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:.none)
+        self.navigationController?.navigationBar.tintColor = themeColor// Set tint color
+        self.navigationItem.rightBarButtonItem = flterButton
+*/
+        var filter = UIImage(named: "filter")
+        filter = filter?.withRenderingMode(.alwaysOriginal)
+        
+        var logout = UIImage(named: "logout")
+        logout = logout?.withRenderingMode(.alwaysOriginal)
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image:logout, style:.plain,                                              target: self, action: #selector(logOut)),
+                                                   UIBarButtonItem(image: filter, style:.plain, target: self, action: #selector(showFilter))]
+    }
+    
+    @objc func logOut() {
+        self.hideKeyboard()
+        let alertController = UIAlertController(title: "RVCart", message: "Are you sure you want to Log Out?", preferredStyle: .alert)
+
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            // Handle OK button tap
+            LoadingView.sharedInstance.showLoader(msg: "")
+            self.homeViewModel.logOutUser()
+            let when = DispatchTime.now() + 1
+            DispatchQueue.main.asyncAfter(deadline: when){
+                LoadingView.sharedInstance.stopLoader()
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        let noAction = UIAlertAction(title: "No", style: .cancel) { _ in
+            // Handle OK button tap
+        }
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func showFilter() {
+        self.hideKeyboard()
+        FilterView.sharedInstance.ShowPopup(categoryID: selectedCategoryID) { [weak self] categoryID, minPrice, maxPrice in
+            print("categoryID: \(categoryID), minPrice: \(minPrice), maxPrice: \(maxPrice)")
+            guard let self = self else { return }
+            if categoryID == -1 && minPrice == -1 && maxPrice == -1 {
+                // clear all filter
+                self.homeViewModel.isMoreDataAvailable = true
+                self.homeViewModel.offsetValue = 0
+                self.selectedCategoryID = -1
+                self.homeViewModel.selectedCategoryId = -1
+                self.loadProducts()
+                self.collectionViewCategory.clearCategorySelection()
+            }
+        }
     }
     
     func loadCategories() {
@@ -115,6 +170,8 @@ class HomeViewController: UIViewController {
         self.homeViewModel.isMoreDataAvailable = true
         self.loadProducts()
     }
+    
+    
     
     func stopRefresher() {
         self.collectionViewProducts!.refreshControl?.endRefreshing()

@@ -31,6 +31,21 @@ class CategoryCollectionView: UICollectionView {
     func displayData() {
         reloadData()
     }
+    
+    
+    func clearCategorySelection() {
+        if let selectedIndex = selectedIndexPath {
+            if let cell = getCellFor(indexPath: selectedIndex) {
+                cell.makeItNormalCell()
+            }
+            selectedIndexPath = nil
+            didSelect?(-1)
+            DispatchQueue.main.async {
+                self.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewDataSource  {

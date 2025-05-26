@@ -14,16 +14,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Wh-TQ-YaN">
-                    <rect key="frame" x="76.666666666666686" y="361" width="240" height="130.33333333333337"/>
+                    <rect key="frame" x="136.66666666666666" y="361" width="119.99999999999997" height="130.33333333333337"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLP-qM-GyV">
-                            <rect key="frame" x="10" y="90" width="220" height="20.333333333333329"/>
+                            <rect key="frame" x="10" y="90" width="100" height="20.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hIy-gA-Ue1">
-                            <rect key="frame" x="99.999999999999986" y="35" width="40.000000000000014" height="40"/>
+                            <rect key="frame" x="40" y="35" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="jU6-Cp-tct"/>
                                 <constraint firstAttribute="height" constant="40" id="xcR-EU-fzE"/>
@@ -34,7 +34,7 @@
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="hIy-gA-Ue1" firstAttribute="centerX" secondItem="7Wh-TQ-YaN" secondAttribute="centerX" id="0Xh-vr-SzM"/>
-                        <constraint firstAttribute="width" constant="240" id="IWe-JZ-kL2"/>
+                        <constraint firstAttribute="width" constant="120" id="IWe-JZ-kL2"/>
                         <constraint firstAttribute="trailing" secondItem="yLP-qM-GyV" secondAttribute="trailing" constant="10" id="WVe-PX-lI6"/>
                         <constraint firstItem="yLP-qM-GyV" firstAttribute="top" secondItem="hIy-gA-Ue1" secondAttribute="bottom" constant="15" id="drl-xJ-PBt"/>
                         <constraint firstAttribute="bottom" secondItem="yLP-qM-GyV" secondAttribute="bottom" constant="20" id="hft-5j-hI7"/>
