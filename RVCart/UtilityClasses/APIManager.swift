@@ -32,7 +32,7 @@ final class APIManager {
         request.httpBody = requestBody
         //Authorization: Bearer {your_access_token}
         if addAccessToken {
-            var token = KeychainSecure.instance.getToken(forKey: "accessToken") ?? ""
+            let token = KeychainSecure.instance.getToken(forKey: "accessToken") ?? ""
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

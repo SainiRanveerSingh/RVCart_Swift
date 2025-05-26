@@ -198,10 +198,10 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KtU-5y-K0C">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KtU-5y-K0C" customClass="ProductCollectionView" customModule="RVCart" customModuleProvider="target">
                                 <rect key="frame" x="10" y="218" width="373" height="600"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mJj-pl-4bw">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="2" minimumInteritemSpacing="2" id="mJj-pl-4bw">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -247,6 +247,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionViewCategory" destination="laY-ft-xbs" id="kTz-E2-9jw"/>
+                        <outlet property="collectionViewProducts" destination="KtU-5y-K0C" id="I3b-ud-PAa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sBk-wY-xse" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

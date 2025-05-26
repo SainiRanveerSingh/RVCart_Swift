@@ -11,7 +11,7 @@ import UIKit
 class CategoryCollectionView: UICollectionView {
     var indexOfPageRequest = (value : 0,isLoadingStatus: false) // for paggination
     var didSelect: ((_ index: Int) -> Void)?
-    var callAPIForGettingNextDiscoverSet: ((_ page: Int) -> Void)?
+    var callAPIForGettingNextSet: ((_ page: Int) -> Void)?
     var categoryCollectionViewModel : HomeViewModel!
     var selectedIndexPath : IndexPath?
     
@@ -35,7 +35,7 @@ class CategoryCollectionView: UICollectionView {
 
 extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewDataSource  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoryCollectionViewModel?.arrCategories.count ?? 0//arrSmallGrid?.count ?? 0
+        return categoryCollectionViewModel?.arrCategories.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -46,10 +46,11 @@ extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewData
     func cell (indexPath:IndexPath) ->  CategoryCell {
         let cell = dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
         cell.configureCell(items: categoryCollectionViewModel?.arrCategories, index: indexPath.row)
-        if selectedIndexPath == indexPath {
-            cell.makeItSelectedCell()
-        } else {
+        if let selectedIndex = selectedIndexPath {
             cell.makeItNormalCell()
+            if selectedIndex == indexPath {
+                cell.makeItSelectedCell()
+            }
         }
         //cell.lblCategory.text = "Cell Item: \(indexPath.item + 1)"
         return cell
@@ -58,11 +59,18 @@ extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if selectedIndexPath != indexPath {
             didSelect?(indexPath.item)
+            if let cell = getCellFor(indexPath: indexPath) {
+                cell.makeItSelectedCell()
+                selectedIndexPath = indexPath
+            }
+        } else {
+            if let cell = getCellFor(indexPath: indexPath) {
+                cell.makeItNormalCell()
+                selectedIndexPath = nil
+                didSelect?(-1)
+            }
         }
-        if let cell = getCellFor(indexPath: indexPath) {
-            cell.makeItSelectedCell()
-            selectedIndexPath = indexPath
-        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

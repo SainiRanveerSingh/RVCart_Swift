@@ -10,6 +10,9 @@ final class HomeViewModel {
     var arrCategories : CategoryData = CategoryData()
     var arrProducts : Products = Products()
     var selectedCategoryId = -1
+    var offsetValue = 0
+    var limitValue = 10 //default limit is of 10. Change as per requirement.
+    var isMoreDataAvailable = true
     
     //MARK: -- Category API --
     func loadProductCategories(completion: @escaping (_ status: Bool, _ message: String) -> Void) {
@@ -65,7 +68,11 @@ final class HomeViewModel {
     
     //MARK: -- Product API --
     func loadProductData(completion: @escaping (_ status: Bool, _ message: String) -> Void) {
+        ////offset=0&limit=10
         var param = [String:String]()
+        param.updateValue("\(offsetValue)", forKey: "offset")
+        param.updateValue("\(limitValue)", forKey: "limit")
+        
         if selectedCategoryId != -1 {
             param.updateValue("\(selectedCategoryId)", forKey: "categoryId")
         }
@@ -80,8 +87,32 @@ final class HomeViewModel {
                 do {
                     if let dataValue = try? JSONDecoder().decode(Products.self, from: data) {
                         //print(dataValue)
-                        self.arrProducts = dataValue
-                        completion(true, "Got the Data")
+                        if self.offsetValue == 0 {
+                            self.arrProducts = dataValue
+                        } else {
+                            if dataValue.count == 0 {
+                                //No more data available to load
+                                self.isMoreDataAvailable = false
+                            } else {
+                                self.arrProducts.append(contentsOf: dataValue)
+                            }
+                        }
+                        //TODO: -- Testing --
+                        //The response data array values are getting change and sometimes getting 0 Products in Array
+                        /*
+                        if dataValue.count == 1 {
+                            self.arrProducts.append(dataValue.first!)
+                        }
+                        */
+                        if dataValue.count == 0 {
+                            if self.offsetValue == 0 {
+                                completion(true, "There are no products available in the category you have selected.")
+                            } else {
+                                completion(true, "No more products available to show.")
+                            }
+                        } else {
+                            completion(true, "Got the Data")
+                        }
                     } else {
                         print("Change in Response Data Structure")
                         completion(false, "Something went wrong. Please try again.")

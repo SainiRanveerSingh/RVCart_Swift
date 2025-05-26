@@ -21,7 +21,7 @@ class LoadingView: UIView {
     }
     
     override func awakeFromNib() {
-        self.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        //self.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         viewBackground.clipsToBounds = true
         viewBackground.layer.cornerRadius = 15
     }
