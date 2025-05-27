@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="55" id="KGk-i7-Jjw" customClass="CategoryTableCell" customModule="RVCart" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZFL-Q5-qaG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.closed.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MUb-Yw-qwG" customClass="CustomImageView" customModule="RVCart" customModuleProvider="target">
+                                <rect key="frame" x="10" y="8.3333333333333321" width="40" height="38.666666666666671"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="3KN-Uv-3Cc"/>
+                                    <constraint firstAttribute="width" constant="40" id="9lG-2T-ckq"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNE-mF-Q0h">
+                                <rect key="frame" x="60" y="5" width="255" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MUb-Yw-qwG" firstAttribute="centerY" secondItem="ZFL-Q5-qaG" secondAttribute="centerY" id="2FL-VR-TRK"/>
+                            <constraint firstItem="MUb-Yw-qwG" firstAttribute="leading" secondItem="ZFL-Q5-qaG" secondAttribute="leading" constant="10" id="5pJ-3h-NG8"/>
+                            <constraint firstItem="iNE-mF-Q0h" firstAttribute="leading" secondItem="ZFL-Q5-qaG" secondAttribute="leading" constant="60" id="AXQ-N8-LKK"/>
+                            <constraint firstAttribute="bottom" secondItem="iNE-mF-Q0h" secondAttribute="bottom" constant="10" id="Ey8-3h-bcF"/>
+                            <constraint firstItem="iNE-mF-Q0h" firstAttribute="top" secondItem="ZFL-Q5-qaG" secondAttribute="top" constant="5" id="KVd-P5-XRv"/>
+                            <constraint firstAttribute="trailing" secondItem="iNE-mF-Q0h" secondAttribute="trailing" constant="5" id="uxm-ZA-Hjv"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ZFL-Q5-qaG" secondAttribute="bottom" id="3vQ-Mn-L7j"/>
+                    <constraint firstItem="ZFL-Q5-qaG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="P56-Lb-2SN"/>
+                    <constraint firstItem="ZFL-Q5-qaG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="S9y-FR-pDs"/>
+                    <constraint firstAttribute="trailing" secondItem="ZFL-Q5-qaG" secondAttribute="trailing" id="e1F-GP-zLG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imgCategory" destination="MUb-Yw-qwG" id="4AE-xB-9sl"/>
+                <outlet property="lblCategoryName" destination="iNE-mF-Q0h" id="UnZ-ul-Jft"/>
+                <outlet property="viewBackground" destination="iNE-mF-Q0h" id="k7X-1z-8Zp"/>
+            </connections>
+            <point key="canvasLocation" x="88.549618320610676" y="-7.394366197183099"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="book.closed.circle" catalog="system" width="128" height="123"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,6 +1,15 @@
 {
-  "originHash" : "990602f943d142d26b1a5421abe2a243e2e1077d090e31e151c33e3ec768723e",
+  "originHash" : "31a52cceb773114da8a248836ffb0776f986641f9d7f42bea1cc9fbabffa66fd",
   "pins" : [
+    {
+      "identity" : "multislider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yonat/MultiSlider",
+      "state" : {
+        "revision" : "b16ea48cbccd86ee6e4cc07f9e0e536683f90e8e",
+        "version" : "2.2.0"
+      }
+    },
     {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
@@ -8,6 +17,15 @@
       "state" : {
         "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca",
         "version" : "5.21.0"
+      }
+    },
+    {
+      "identity" : "sweeterswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yonat/SweeterSwift",
+      "state" : {
+        "revision" : "c9e34c454ba4d5b7b6a81c766bb3337fb6e21dfc",
+        "version" : "1.2.6"
       }
     }
   ],

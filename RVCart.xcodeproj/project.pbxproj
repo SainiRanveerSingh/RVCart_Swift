@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0434BB922DE5621000D490A0 /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 0434BB912DE5621000D490A0 /* MultiSlider */; };
 		04360A482DE4752A005A9283 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 04360A472DE4752A005A9283 /* SDWebImage */; };
 		04F2AD022DE1CE610095AA1D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F2AD012DE1CE610095AA1D /* Security.framework */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04360A482DE4752A005A9283 /* SDWebImage in Frameworks */,
+				0434BB922DE5621000D490A0 /* MultiSlider in Frameworks */,
 				04F2AD022DE1CE610095AA1D /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +145,7 @@
 			name = RVCart;
 			packageProductDependencies = (
 				04360A472DE4752A005A9283 /* SDWebImage */,
+				0434BB912DE5621000D490A0 /* MultiSlider */,
 			);
 			productName = RVCart;
 			productReference = 04B2DE902DDF39D60084EAF3 /* RVCart.app */;
@@ -228,6 +231,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				04360A462DE4752A005A9283 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				0434BB902DE5621000D490A0 /* XCRemoteSwiftPackageReference "MultiSlider" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 04B2DE912DDF39D60084EAF3 /* Products */;
@@ -586,6 +590,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0434BB902DE5621000D490A0 /* XCRemoteSwiftPackageReference "MultiSlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yonat/MultiSlider";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		04360A462DE4752A005A9283 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -597,6 +609,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0434BB912DE5621000D490A0 /* MultiSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0434BB902DE5621000D490A0 /* XCRemoteSwiftPackageReference "MultiSlider" */;
+			productName = MultiSlider;
+		};
 		04360A472DE4752A005A9283 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 04360A462DE4752A005A9283 /* XCRemoteSwiftPackageReference "SDWebImage" */;

@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import MultiSlider
 
 class FilterView: UIView {
     
@@ -16,15 +17,25 @@ class FilterView: UIView {
     
     @IBOutlet weak var viewCategory: UIView!
     @IBOutlet weak var lblSelectedCategory: UILabel!
+    
+    //Category Table View as Drop down
+    @IBOutlet weak var viewCategoryDropdown: UIView!
+    @IBOutlet weak var dropDownHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tblCategoryDropDown: FilterCategoryTableView!
+    
     @IBOutlet weak var lblMinPrice: UILabel!
     @IBOutlet weak var lblMaxPrice: UILabel!
     
     @IBOutlet weak var btnApplyFilter: UIButton!
     @IBOutlet weak var btnClearFilter: UIButton!
     
-    var selectedCotegoryIndex = -1
-    var minimumPrice = 0
-    var maximumPrice = 0
+    @IBOutlet weak var viewPriceSlider: UIView!
+    var sliderPriceRange = MultiSlider()
+    
+    var arrCategories : CategoryData = CategoryData()
+    var selectedCategoryIndex = -1
+    var minimumPrice = 1
+    var maximumPrice = 1000
     
     class func initLoader() -> FilterView {
         return UINib(nibName: "FilterView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! FilterView
@@ -40,12 +51,72 @@ class FilterView: UIView {
         initialSetup()
     }
     
+    func initialSetup() {
+        viewBackground.clipsToBounds = true
+        viewBackground.layer.cornerRadius = 25
+        viewBackground.layer.borderColor = themeColor.cgColor
+        viewBackground.layer.borderWidth = 1.0
+        
+        btnClose.clipsToBounds = true
+        btnClose.layer.cornerRadius = 20
+        btnClose.layer.borderColor = themeColor.cgColor
+        btnClose.layer.borderWidth = 2.0
+        
+        viewCategory.clipsToBounds = true
+        viewCategory.layer.cornerRadius = 15
+        viewCategory.layer.borderColor = themeColor.cgColor
+        viewCategory.layer.borderWidth = 1.0
+        
+        btnApplyFilter.clipsToBounds = true
+        btnApplyFilter.layer.cornerRadius = 10
+        
+        btnClearFilter.clipsToBounds = true
+        btnClearFilter.layer.cornerRadius = 10
+        
+        tblCategoryDropDown.didSelect = { [weak self] (index) in
+            guard let self = self else { return }
+            
+            
+        }
+        
+    }
+    
+    func setupPriceSlider() {
+        
+        //--
+        //let horizontalMultiSlider = MultiSlider()
+        sliderPriceRange.orientation = .horizontal
+        sliderPriceRange.minimumValue = 1
+        sliderPriceRange.maximumValue = 1000
+        sliderPriceRange.outerTrackColor = .gray
+        sliderPriceRange.value = [1, 1000]
+        sliderPriceRange.valueLabelPosition = .top
+        sliderPriceRange.tintColor = themeColor
+        sliderPriceRange.trackWidth = 32
+        sliderPriceRange.showsThumbImageShadow = false
+        sliderPriceRange.valueLabelAlternatePosition = true
+        sliderPriceRange.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
+        
+        sliderPriceRange.frame = CGRect(x: 0, y: 0, width: viewPriceSlider.frame.size.width, height: 30)
+        sliderPriceRange.tag = 1023
+        if viewPriceSlider.viewWithTag(1023) == nil {
+            viewPriceSlider.addSubview(sliderPriceRange)
+        }
+        
+        //--
+       
+    }
+    
     //MARK:- Main Method -
-    func ShowPopup(categoryID: Int, minPrice: Int, maxPrice: Int, onCompletion: @escaping (_ categoryID: Int, _ minPrice: Int, _ maxPrice: Int)-> Void) {
+    func ShowPopup(categoryID: Int, categoryArray: CategoryData, minPrice: Int, maxPrice: Int, onCompletion: @escaping (_ categoryID: Int, _ minPrice: Int, _ maxPrice: Int)-> Void) {
         self.frame = UIScreen.main.bounds
-        selectedCotegoryIndex = categoryID
+        selectedCategoryIndex = categoryID
+        arrCategories = categoryArray
         minimumPrice = minPrice
         maximumPrice = maxPrice
+        setupPriceSlider()
+        sliderPriceRange.value = [CGFloat(minPrice), CGFloat(maxPrice)]
+        
         self.onCloser = onCompletion
         print("selectedCategoryID in Filter Pop up: \(categoryID)")
         let keyWindow = UIApplication.shared.connectedScenes
@@ -83,36 +154,37 @@ class FilterView: UIView {
         }
     }
     
-    func initialSetup() {
-        viewBackground.clipsToBounds = true
-        viewBackground.layer.cornerRadius = 25
-        viewBackground.layer.borderColor = themeColor.cgColor
-        viewBackground.layer.borderWidth = 1.0
+    //Price Slider Methods
+    @objc func sliderChanged(_ slider: MultiSlider) {
+        print("thumb \(slider.draggedThumbIndex) moved")
+        print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
         
-        btnClose.clipsToBounds = true
-        btnClose.layer.cornerRadius = 20
-        btnClose.layer.borderColor = themeColor.cgColor
-        btnClose.layer.borderWidth = 2.0
+        if Int(slider.value.first ?? 1) == 0 {
+            minimumPrice = 1
+        } else {
+            minimumPrice = Int(slider.value.first ?? 1)
+        }
         
-        viewCategory.clipsToBounds = true
-        viewCategory.layer.cornerRadius = 15
-        viewCategory.layer.borderColor = themeColor.cgColor
-        viewCategory.layer.borderWidth = 1.0
-        
-        btnApplyFilter.clipsToBounds = true
-        btnApplyFilter.layer.cornerRadius = 10
-        
-        btnClearFilter.clipsToBounds = true
-        btnClearFilter.layer.cornerRadius = 10
+        maximumPrice = Int(slider.value.last ?? 1000)
+    }
+    
+    @objc func sliderDragEnded(_ slider: MultiSlider) {
+        print("draging ends")
     }
     
     @IBAction func btnSelectCategory(_ sender: UIButton) {
         print("Select Category Button Clicked")
+        viewCategoryDropdown.isHidden = false
+        self.layoutIfNeeded()    // Change to view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5) {
+            self.dropDownHeightConstraint.constant = 130.0
+            self.layoutIfNeeded() // Change to view.layoutIfNeeded()
+        }
     }
     
     @IBAction func btnApplyFilter(_ sender: UIButton) {
         print("Select Apply Filter Button Clicked")
-        onCloser(selectedCotegoryIndex, minimumPrice, maximumPrice) //(categoryIndex, minPrice, maxPrice)
+        onCloser(selectedCategoryIndex, minimumPrice, maximumPrice) //(categoryIndex, minPrice, maxPrice)
         removeWithAnimation()
     }
     

@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     var selectedProduct = -1
     var refresher:UIRefreshControl!
     var isScrolledToLoadMoreData = false
+    var categorySelectedAtIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,8 @@ class HomeViewController: UIViewController {
         collectionViewCategory.configure(homeViewModel)
         collectionViewCategory.didSelect = { [weak self] (index) in
             guard let self = self else { return }
+            
+            categorySelectedAtIndex = index
             if index != -1 {
                 self.selectedCategoryID = self.homeViewModel.getCategoryIdAt(index: index)
                 self.homeViewModel.selectedCategoryId = self.selectedCategoryID
@@ -120,7 +123,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func showFilter() {
         self.hideKeyboard()
-        FilterView.sharedInstance.ShowPopup(categoryID: selectedCategoryID, minPrice: 0, maxPrice: 0) { [weak self] categoryID, minPrice, maxPrice in
+        FilterView.sharedInstance.ShowPopup(categoryID: categorySelectedAtIndex, categoryArray: self.homeViewModel.arrCategories, minPrice: homeViewModel.minimumSelectedPrice, maxPrice: homeViewModel.maximumSelectedPrice) { [weak self] categoryID, minPrice, maxPrice in
             print("categoryID: \(categoryID), minPrice: \(minPrice), maxPrice: \(maxPrice)")
             guard let self = self else { return }
             if categoryID == -1 && minPrice == -1 && maxPrice == -1 {
@@ -130,15 +133,26 @@ class HomeViewController: UIViewController {
                 self.selectedCategoryID = -1
                 self.homeViewModel.selectedCategoryId = -1
                 self.collectionViewCategory.clearCategorySelection()
+                //Price range
+                self.homeViewModel.minimumSelectedPrice = 1
+                self.homeViewModel.maximumSelectedPrice = 1000
+                
                 self.loadProducts()
             } else {
                 self.homeViewModel.isMoreDataAvailable = true
                 self.homeViewModel.offsetValue = 0
                 //--
-                self.selectedCategoryID = self.homeViewModel.getCategoryIdAt(index: categoryID)
+                if categoryID != -1 {
+                    self.selectedCategoryID = self.homeViewModel.getCategoryIdAt(index: categoryID)
+                }
                 self.homeViewModel.selectedCategoryId = self.selectedCategoryID
-                self.collectionViewCategory.selectedIndexPath = IndexPath(item: categoryID, section: 1)
+                self.categorySelectedAtIndex = categoryID
+                self.collectionViewCategory.selectedIndexPath = IndexPath(item: categoryID, section: 0)
                 self.collectionViewCategory.displayData()
+                //Price range
+                self.homeViewModel.minimumSelectedPrice = minPrice
+                self.homeViewModel.maximumSelectedPrice = maxPrice
+                
                 self.loadProducts()
             }
         }

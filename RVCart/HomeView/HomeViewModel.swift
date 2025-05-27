@@ -13,6 +13,8 @@ final class HomeViewModel {
     var offsetValue = 0
     var limitValue = 10 //default limit is of 10. Change as per requirement.
     var isMoreDataAvailable = true
+    var minimumSelectedPrice = 1
+    var maximumSelectedPrice = 1000
     
     //MARK: -- Category API --
     func loadProductCategories(completion: @escaping (_ status: Bool, _ message: String) -> Void) {
@@ -73,10 +75,17 @@ final class HomeViewModel {
     
     //MARK: -- Product API --
     func loadProductData(completion: @escaping (_ status: Bool, _ message: String) -> Void) {
-        ////offset=0&limit=10
+        
+        //Setting up parameter for pagination
+        //offset=0&limit=10
         var param = [String:String]()
         param.updateValue("\(offsetValue)", forKey: "offset")
         param.updateValue("\(limitValue)", forKey: "limit")
+        
+        //Setting up param eter for Price range
+        //price_min=900&price_max=1000
+        param.updateValue("\(minimumSelectedPrice)", forKey: "price_min")
+        param.updateValue("\(maximumSelectedPrice)", forKey: "price_max")
         
         if selectedCategoryId != -1 {
             param.updateValue("\(selectedCategoryId)", forKey: "categoryId")
