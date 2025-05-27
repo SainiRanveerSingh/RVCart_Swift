@@ -27,6 +27,7 @@ final class KeychainSecure {
             ]
             let status = SecItemAdd(query as CFDictionary, nil)
             guard status != errSecDuplicateItem else {
+                try? update(token, forKey: key)
                 throw KeychainError.duplicateEntry
             }
             guard status == errSecSuccess else {
@@ -77,7 +78,7 @@ final class KeychainSecure {
         // the client can determine whether or not to handle
         // this as an error
         guard status != errSecItemNotFound else {
-            throw KeychainError.duplicateEntry
+            throw KeychainError.unknown(status)
         }
         
         // Any status other than errSecSuccess indicates the
