@@ -22,6 +22,10 @@ class FilterView: UIView {
     @IBOutlet weak var btnApplyFilter: UIButton!
     @IBOutlet weak var btnClearFilter: UIButton!
     
+    var selectedCotegoryIndex = -1
+    var minimumPrice = 0
+    var maximumPrice = 0
+    
     class func initLoader() -> FilterView {
         return UINib(nibName: "FilterView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! FilterView
     }
@@ -37,8 +41,11 @@ class FilterView: UIView {
     }
     
     //MARK:- Main Method -
-    func ShowPopup(categoryID: Int, onCompletion: @escaping (_ categoryID: Int, _ minPrice: Int, _ maxPrice: Int)-> Void) {
+    func ShowPopup(categoryID: Int, minPrice: Int, maxPrice: Int, onCompletion: @escaping (_ categoryID: Int, _ minPrice: Int, _ maxPrice: Int)-> Void) {
         self.frame = UIScreen.main.bounds
+        selectedCotegoryIndex = categoryID
+        minimumPrice = minPrice
+        maximumPrice = maxPrice
         self.onCloser = onCompletion
         print("selectedCategoryID in Filter Pop up: \(categoryID)")
         let keyWindow = UIApplication.shared.connectedScenes
@@ -105,7 +112,7 @@ class FilterView: UIView {
     
     @IBAction func btnApplyFilter(_ sender: UIButton) {
         print("Select Apply Filter Button Clicked")
-        onCloser(1, 0, 0)
+        onCloser(selectedCotegoryIndex, minimumPrice, maximumPrice) //(categoryIndex, minPrice, maxPrice)
         removeWithAnimation()
     }
     

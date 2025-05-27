@@ -120,7 +120,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func showFilter() {
         self.hideKeyboard()
-        FilterView.sharedInstance.ShowPopup(categoryID: selectedCategoryID) { [weak self] categoryID, minPrice, maxPrice in
+        FilterView.sharedInstance.ShowPopup(categoryID: selectedCategoryID, minPrice: 0, maxPrice: 0) { [weak self] categoryID, minPrice, maxPrice in
             print("categoryID: \(categoryID), minPrice: \(minPrice), maxPrice: \(maxPrice)")
             guard let self = self else { return }
             if categoryID == -1 && minPrice == -1 && maxPrice == -1 {
@@ -129,8 +129,17 @@ class HomeViewController: UIViewController {
                 self.homeViewModel.offsetValue = 0
                 self.selectedCategoryID = -1
                 self.homeViewModel.selectedCategoryId = -1
-                self.loadProducts()
                 self.collectionViewCategory.clearCategorySelection()
+                self.loadProducts()
+            } else {
+                self.homeViewModel.isMoreDataAvailable = true
+                self.homeViewModel.offsetValue = 0
+                //--
+                self.selectedCategoryID = self.homeViewModel.getCategoryIdAt(index: categoryID)
+                self.homeViewModel.selectedCategoryId = self.selectedCategoryID
+                self.collectionViewCategory.selectedIndexPath = IndexPath(item: categoryID, section: 1)
+                self.collectionViewCategory.displayData()
+                self.loadProducts()
             }
         }
     }
