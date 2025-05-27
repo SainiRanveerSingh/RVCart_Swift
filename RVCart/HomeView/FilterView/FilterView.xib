@@ -72,23 +72,6 @@
                                 <constraint firstItem="9Ba-5S-vF7" firstAttribute="leading" secondItem="nvt-mU-OMM" secondAttribute="leading" id="ucQ-Sn-UKT"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AF4-sr-M5K">
-                            <rect key="frame" x="20" y="127" width="293" height="130"/>
-                            <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YFm-tl-EhU" customClass="FilterCategoryTableView" customModule="RVCart" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="293" height="130"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                </tableView>
-                            </subviews>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="130" id="5Hg-PM-mmC"/>
-                                <constraint firstAttribute="trailing" secondItem="YFm-tl-EhU" secondAttribute="trailing" id="KuI-qW-c9A"/>
-                                <constraint firstItem="YFm-tl-EhU" firstAttribute="leading" secondItem="AF4-sr-M5K" secondAttribute="leading" id="afF-vK-Zdt"/>
-                                <constraint firstItem="YFm-tl-EhU" firstAttribute="top" secondItem="AF4-sr-M5K" secondAttribute="top" id="duz-4y-WZK"/>
-                                <constraint firstAttribute="bottom" secondItem="YFm-tl-EhU" secondAttribute="bottom" id="uRz-F5-4kM"/>
-                            </constraints>
-                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Price Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlh-E4-I6x">
                             <rect key="frame" x="25" y="146" width="283" height="21"/>
                             <constraints>
@@ -163,6 +146,23 @@
                                 <action selector="btnCloseFilter:" destination="iN0-l3-epB" eventType="touchUpInside" id="9vi-zJ-0CZ"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AF4-sr-M5K">
+                            <rect key="frame" x="20" y="128" width="293" height="130"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YFm-tl-EhU" customClass="FilterCategoryTableView" customModule="RVCart" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="293" height="130"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </tableView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="130" id="5Hg-PM-mmC"/>
+                                <constraint firstAttribute="trailing" secondItem="YFm-tl-EhU" secondAttribute="trailing" id="KuI-qW-c9A"/>
+                                <constraint firstItem="YFm-tl-EhU" firstAttribute="leading" secondItem="AF4-sr-M5K" secondAttribute="leading" id="afF-vK-Zdt"/>
+                                <constraint firstItem="YFm-tl-EhU" firstAttribute="top" secondItem="AF4-sr-M5K" secondAttribute="top" id="duz-4y-WZK"/>
+                                <constraint firstAttribute="bottom" secondItem="YFm-tl-EhU" secondAttribute="bottom" id="uRz-F5-4kM"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
@@ -170,7 +170,7 @@
                         <constraint firstItem="1mW-Ly-qoT" firstAttribute="top" secondItem="xlh-E4-I6x" secondAttribute="bottom" constant="15" id="6B2-nO-trE"/>
                         <constraint firstItem="Ls0-rv-wTh" firstAttribute="leading" secondItem="QaQ-oH-J4h" secondAttribute="leading" constant="25" id="Cgk-Ix-zRb"/>
                         <constraint firstItem="yyR-LN-h2G" firstAttribute="height" secondItem="dFi-O3-g92" secondAttribute="height" id="GJ4-tg-V94"/>
-                        <constraint firstItem="AF4-sr-M5K" firstAttribute="top" secondItem="nvt-mU-OMM" secondAttribute="bottom" constant="1" id="Gu3-5C-jlV"/>
+                        <constraint firstItem="AF4-sr-M5K" firstAttribute="top" secondItem="nvt-mU-OMM" secondAttribute="bottom" constant="2" id="Gu3-5C-jlV"/>
                         <constraint firstItem="nvt-mU-OMM" firstAttribute="leading" secondItem="QaQ-oH-J4h" secondAttribute="leading" constant="20" id="JGb-YD-HXv"/>
                         <constraint firstItem="Vgs-hB-Hou" firstAttribute="top" secondItem="QaQ-oH-J4h" secondAttribute="top" constant="20" id="Jj0-Bs-ZdW"/>
                         <constraint firstAttribute="height" constant="360" id="KON-bS-l9G"/>
@@ -211,6 +211,7 @@
                 <outlet property="btnClose" destination="pnw-4w-aKu" id="nux-QQ-8mW"/>
                 <outlet property="centerSpace" destination="0EQ-ec-ncv" id="shY-uJ-yba"/>
                 <outlet property="dropDownHeightConstraint" destination="5Hg-PM-mmC" id="n3X-fO-EbC"/>
+                <outlet property="dropDownImage" destination="nu1-wT-BBO" id="b4w-DI-rhG"/>
                 <outlet property="lblSelectedCategory" destination="4lt-84-4Cm" id="Jrf-h0-tKY"/>
                 <outlet property="tblCategoryDropDown" destination="YFm-tl-EhU" id="7iV-Bq-SJX"/>
                 <outlet property="viewBackground" destination="QaQ-oH-J4h" id="CMr-Qp-qpc"/>

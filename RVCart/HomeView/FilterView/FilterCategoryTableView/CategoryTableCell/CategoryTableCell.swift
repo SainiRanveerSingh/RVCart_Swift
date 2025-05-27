@@ -16,6 +16,14 @@ class CategoryTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        initialSetup()
+    }
+    
+    func initialSetup() {
+        imgCategory.clipsToBounds = true
+        imgCategory.layer.cornerRadius = 20
+        
+        lblCategoryName.textColor = themeColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

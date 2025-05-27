@@ -109,7 +109,8 @@ class HomeViewController: UIViewController {
             let when = DispatchTime.now() + 1
             DispatchQueue.main.asyncAfter(deadline: when){
                 LoadingView.sharedInstance.stopLoader()
-                self.navigationController?.popViewController(animated: true)
+                let homeVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                self.navigationController?.pushViewController(homeVC, animated: false)
             }
         }
         let noAction = UIAlertAction(title: "No", style: .cancel) { _ in

@@ -20,6 +20,11 @@ class FilterCategoryTableView: UITableView {
         let nib = UINib.init(nibName: "CategoryTableCell", bundle: nil)
         self.register(nib, forCellReuseIdentifier: "CategoryTableCell")
     }
+    
+    func displayData() {
+        reloadData()
+    }
+    
 
 }
 

@@ -20,6 +20,7 @@ class FilterView: UIView {
     
     //Category Table View as Drop down
     @IBOutlet weak var viewCategoryDropdown: UIView!
+    @IBOutlet weak var dropDownImage: UIImageView!
     @IBOutlet weak var dropDownHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tblCategoryDropDown: FilterCategoryTableView!
     
@@ -73,10 +74,28 @@ class FilterView: UIView {
         btnClearFilter.clipsToBounds = true
         btnClearFilter.layer.cornerRadius = 10
         
+        dropDownHeightConstraint.constant = 0.0
+        /*
+        tblCategoryDropDown.configure(arrCategories)
+        tblCategoryDropDown.displayData()
+        */
+        
+        self.dropDownHeightConstraint.constant = 0.0
+        viewCategoryDropdown.isHidden = true
+        
         tblCategoryDropDown.didSelect = { [weak self] (index) in
             guard let self = self else { return }
             
-            
+            selectedCategoryIndex = index
+            if arrCategories.count > index {
+                lblSelectedCategory.text = arrCategories[index].name
+            }
+            self.dropDownHeightConstraint.constant = 0.0
+            self.viewCategoryDropdown.isHidden = true
+            self.viewCategoryDropdown.layer.borderColor = UIColor.clear.cgColor
+            self.viewCategoryDropdown.layer.borderWidth = 0.0
+            self.dropDownImage.transform = self.dropDownImage.transform.rotated(by: .pi)
+            self.layoutIfNeeded()    // Change to view.layoutIfNeeded()
         }
         
     }
@@ -111,11 +130,19 @@ class FilterView: UIView {
     func ShowPopup(categoryID: Int, categoryArray: CategoryData, minPrice: Int, maxPrice: Int, onCompletion: @escaping (_ categoryID: Int, _ minPrice: Int, _ maxPrice: Int)-> Void) {
         self.frame = UIScreen.main.bounds
         selectedCategoryIndex = categoryID
+        if arrCategories.count > categoryID && categoryID > 0{
+            lblSelectedCategory.text = arrCategories[categoryID].name
+        }
         arrCategories = categoryArray
         minimumPrice = minPrice
         maximumPrice = maxPrice
         setupPriceSlider()
         sliderPriceRange.value = [CGFloat(minPrice), CGFloat(maxPrice)]
+        
+        //-- Category Drop Down--
+        tblCategoryDropDown.configure(categoryArray)
+        tblCategoryDropDown.displayData()
+        //--
         
         self.onCloser = onCompletion
         print("selectedCategoryID in Filter Pop up: \(categoryID)")
@@ -174,12 +201,37 @@ class FilterView: UIView {
     
     @IBAction func btnSelectCategory(_ sender: UIButton) {
         print("Select Category Button Clicked")
-        viewCategoryDropdown.isHidden = false
-        self.layoutIfNeeded()    // Change to view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5) {
-            self.dropDownHeightConstraint.constant = 130.0
-            self.layoutIfNeeded() // Change to view.layoutIfNeeded()
+        if viewCategoryDropdown.isHidden {
+            viewCategoryDropdown.isHidden = false
+            viewCategoryDropdown.layer.borderColor = themeColor.cgColor
+            viewCategoryDropdown.layer.borderWidth = 1.0
+            viewCategoryDropdown.layer.cornerRadius = 15
+            self.layoutIfNeeded()    // Change to view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.5) {
+                self.dropDownImage.transform = self.dropDownImage.transform.rotated(by: .pi)
+                self.dropDownHeightConstraint.constant = 130.0
+                self.layoutIfNeeded() // Change to view.layoutIfNeeded()
+            }
+        } else {
+            self.layoutIfNeeded()    // Change to view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.dropDownHeightConstraint.constant = 0.0
+                self.dropDownImage.image?.sd_rotatedImage(withAngle: 0, fitSize: false)
+                self.dropDownImage.transform = self.dropDownImage.transform.rotated(by: .pi)
+                    self.layoutIfNeeded()
+                }, completion: {res in
+                    //Do something
+                    self.viewCategoryDropdown.isHidden = true
+                    self.viewCategoryDropdown.layer.borderColor = UIColor.clear.cgColor
+                    self.viewCategoryDropdown.layer.borderWidth = 0.0
+                    self.viewCategoryDropdown.layer.cornerRadius = 0
+                self.layoutIfNeeded()
+            })
+            
+            
         }
+        
+        
     }
     
     @IBAction func btnApplyFilter(_ sender: UIButton) {
